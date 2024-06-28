@@ -385,19 +385,84 @@ const testCases = [
         name: 'typescript : print stdin',
         reqObject: {
             language: 'typescript',
-            script: 
-                'import * as readline from "readline";\n' +
+            script:
+                'const readline = require("readline");\n' +
                 'const rl = readline.createInterface({\n' +
-                '    input: process.stdin,\n' +
-                '    output: process.stdout\n' +
+                '  input: process.stdin,\n' +
+                '  output: process.stdout\n' +
                 '});\n' +
                 'rl.on("line", (input) => {\n' +
-                '    console.log(input);\n' +
-                '});\n',
+                '  console.log(input);\n' +
+                '});',
             stdin: '1 2 3',
         },
         expectedResponse: {
             val: '1\n2\n3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'typescript : add two numbers',
+        reqObject: {
+            language: 'typescript',
+            script: 
+                'const add = (a: number, b: number): number => {\n' +
+                '  return a + b;\n' +
+                '};\n' +
+                'console.log(add(2, 3));',
+        },
+        expectedResponse: {
+            val: '5\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'typescript : reverse string',
+        reqObject: {
+            language: 'typescript',
+            script: 
+                'const reverseString = (str: string): string => {\n' +
+                '  return str.split("").reverse().join("");\n' +
+                '};\n' +
+                'console.log(reverseString("hello"));',
+        },
+        expectedResponse: {
+            val: 'olleh\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'typescript : factorial',
+        reqObject: {
+            language: 'typescript',
+            script: 
+                'const factorial = (n: number): number => {\n' +
+                '  if (n === 0) return 1;\n' +
+                '  return n * factorial(n - 1);\n' +
+                '};\n' +
+                'console.log(factorial(5));',
+        },
+        expectedResponse: {
+            val: '120\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'typescript : check even or odd',
+        reqObject: {
+            language: 'typescript',
+            script: 
+                'const isEven = (num: number): string => {\n' +
+                '  return num % 2 === 0 ? "even" : "odd";\n' +
+                '};\n' +
+                'console.log(isEven(4));',
+        },
+        expectedResponse: {
+            val: 'even\n',
             status: 200,
             error: 0,
         },
